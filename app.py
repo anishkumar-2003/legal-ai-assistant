@@ -1,24 +1,5 @@
 import streamlit as st
 import base64
-import speech_recognition as sr
-
-def get_voice_text():
-    recognizer = sr.Recognizer()
-
-    try:
-        with sr.Microphone() as source:
-            st.info("🎙 Listening... Please speak clearly")
-            recognizer.adjust_for_ambient_noise(source)
-            audio = recognizer.listen(source)
-
-        text = recognizer.recognize_google(audio)
-        return text
-
-    except sr.UnknownValueError:
-        return ""
-
-    except sr.RequestError:
-        return ""
 
 # ---------------------------------------
 # PAGE CONFIG
@@ -247,21 +228,6 @@ st.markdown("""
 # UPLOAD & ANALYZE
 # ---------------------------------------
 if menu=="Upload & Analyze":
-
-    st.markdown('<div class="card">', unsafe_allow_html=True)
-    st.markdown("## 🎙 Speak Contract Clause")
-
-    if st.button("Start Voice Input"):
-        spoken_text = get_voice_text()
-
-        if spoken_text:
-            st.success("Voice captured successfully!")
-            st.text_area("Recognized Text", spoken_text, height=120)
-        else:
-            st.error("Could not recognize speech. Try again.")
-
-    st.markdown('</div>', unsafe_allow_html=True)
-
 
     st.markdown('<div class="card">',unsafe_allow_html=True)
     st.markdown("## 📤 Upload Contract")
